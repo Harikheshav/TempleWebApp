@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempleWebApp", "TempleWebApp\TempleWebApp.csproj", "{A88AC0E4-E8E2-4328-9AAC-21DD0E80A2D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A88AC0E4-E8E2-4328-9AAC-21DD0E80A2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A88AC0E4-E8E2-4328-9AAC-21DD0E80A2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A88AC0E4-E8E2-4328-9AAC-21DD0E80A2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A88AC0E4-E8E2-4328-9AAC-21DD0E80A2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F75C60B6-EA41-47A6-8466-8D7DD21135EB}
+	EndGlobalSection
+EndGlobal
