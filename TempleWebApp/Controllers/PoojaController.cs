@@ -24,7 +24,7 @@ namespace TempleWebApp.Controllers
         {
             db.Poojas.Add(pooja);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details");
         }
         public IActionResult Edit(int id)
         {
@@ -34,12 +34,12 @@ namespace TempleWebApp.Controllers
         [HttpPost]
         public IActionResult Edit(Pooja newpooja)
         {
-            int id = pooja.Pid;
+            int id = newpooja.Pid;
             Pooja oldpooja = db.Poojas.Where(x => x.Pid == id).FirstOrDefault();
             db.Poojas.Remove(oldpooja);
             db.Poojas.Add(newpooja);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details");
         }
         public IActionResult Delete(int id)
         {
@@ -51,9 +51,16 @@ namespace TempleWebApp.Controllers
         public IActionResult DeleteConfirm(int id)
         {
             pooja = db.Poojas.Find(id);
-            db.Poojas.Remove(pooja);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.Poojas.Remove(pooja);
+                db.SaveChanges();
+            }
+            catch
+            {
+                TempData["Message"] = "Unable to delete because already a " + pooja.Name + " has been set by User";
+            }
+            return RedirectToAction("Details");
         }
         public IActionResult Detail(int id)
         {

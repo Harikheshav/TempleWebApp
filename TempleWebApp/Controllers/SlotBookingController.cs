@@ -8,6 +8,7 @@ namespace TempleWebApp.Controllers
     {
         SlotBkng slot = new SlotBkng();
         TempleContext db;
+
         public SlotBookingController(TempleContext _db)
         {
             db = _db;
@@ -31,6 +32,7 @@ namespace TempleWebApp.Controllers
                 ConHallBkng con = new ConHallBkng(slot);
                 db.ConHallBkngs.Add(con);
                 db.SaveChanges();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             else if (slot.SlotName == "Annadhanam")
@@ -42,10 +44,7 @@ namespace TempleWebApp.Controllers
             }
             else
             {
-                PoojaBkng pooja = new PoojaBkng(slot);
-                db.PoojaBkngs.Add(pooja);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new EmptyResult();
             }
         }
     }

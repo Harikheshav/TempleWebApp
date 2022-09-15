@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using TempleWebApp.Models;
 
 namespace TempleWebApp.Models
 {
@@ -17,11 +16,13 @@ namespace TempleWebApp.Models
         {
         }
 
+        public virtual DbSet<Admin> Admins { get; set; } = null!;
         public virtual DbSet<AnDhanBkng> AnDhanBkngs { get; set; } = null!;
         public virtual DbSet<ConHallBkng> ConHallBkngs { get; set; } = null!;
         public virtual DbSet<FnHallBkng> FnHallBkngs { get; set; } = null!;
         public virtual DbSet<Pooja> Poojas { get; set; } = null!;
         public virtual DbSet<PoojaBkng> PoojaBkngs { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,6 +35,31 @@ namespace TempleWebApp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.HasKey(e => e.Uid)
+                    .HasName("PK__admin___DD701264821D0558");
+
+                entity.ToTable("admin_");
+
+                entity.Property(e => e.Uid).HasColumnName("uid");
+
+                entity.Property(e => e.Emailid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("emailid");
+
+                entity.Property(e => e.Pword)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("pword");
+
+                entity.Property(e => e.Uname)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("uname");
+            });
+
             modelBuilder.Entity<AnDhanBkng>(entity =>
             {
                 entity.HasKey(e => e.Bkid)
@@ -42,6 +68,8 @@ namespace TempleWebApp.Models
                 entity.ToTable("AnDhanBkng");
 
                 entity.Property(e => e.Bkid).HasColumnName("bkid");
+
+                entity.Property(e => e.Cost).HasColumnName("cost");
 
                 entity.Property(e => e.Det)
                     .HasMaxLength(200)
@@ -66,6 +94,8 @@ namespace TempleWebApp.Models
 
                 entity.Property(e => e.Bkid).HasColumnName("bkid");
 
+                entity.Property(e => e.Cost).HasColumnName("cost");
+
                 entity.Property(e => e.Det)
                     .HasMaxLength(200)
                     .IsUnicode(false)
@@ -88,6 +118,8 @@ namespace TempleWebApp.Models
                 entity.ToTable("FnHallBkng");
 
                 entity.Property(e => e.Bkid).HasColumnName("bkid");
+
+                entity.Property(e => e.Cost).HasColumnName("cost");
 
                 entity.Property(e => e.Det)
                     .HasMaxLength(200)
@@ -128,7 +160,7 @@ namespace TempleWebApp.Models
             modelBuilder.Entity<PoojaBkng>(entity =>
             {
                 entity.HasKey(e => e.Bkid)
-                    .HasName("PK__PoojaBkn__513991463D622C19");
+                    .HasName("PK__PoojaBkn__51399146AB8B3B4A");
 
                 entity.ToTable("PoojaBkng");
 
@@ -143,16 +175,46 @@ namespace TempleWebApp.Models
                     .HasColumnType("datetime")
                     .HasColumnName("edt");
 
+                entity.Property(e => e.Pooid).HasColumnName("pooid");
+
                 entity.Property(e => e.Sdt)
                     .HasColumnType("datetime")
                     .HasColumnName("sdt");
+
+                entity.HasOne(d => d.Poo)
+                    .WithMany(p => p.PoojaBkngs)
+                    .HasForeignKey(d => d.Pooid)
+                    .HasConstraintName("FK__PoojaBkng__pooid__49C3F6B7");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(e => e.Uid)
+                    .HasName("PK__user___DD70126479306A8E");
+
+                entity.ToTable("user_");
+
+                entity.Property(e => e.Uid).HasColumnName("uid");
+
+                entity.Property(e => e.Emailid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("emailid");
+
+                entity.Property(e => e.Pword)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("pword");
+
+                entity.Property(e => e.Uname)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("uname");
             });
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<TempleWebApp.Models.SlotBkng>? SlotBkng { get; set; }
     }
 }

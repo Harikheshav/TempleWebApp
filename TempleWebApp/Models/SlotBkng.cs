@@ -6,6 +6,8 @@ namespace TempleWebApp.Models
     {
         [Key]
         public int Bkid { get; set; }
+
+        public int Cost { get; set; }
         public string? Det { get; set; }
         public DateTime? Sdt { get; set; }
         public DateTime? Edt { get; set; }
@@ -15,5 +17,6 @@ namespace TempleWebApp.Models
         {
 
         }
+
     }
 }

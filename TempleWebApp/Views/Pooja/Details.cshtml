@@ -5,7 +5,7 @@
 }
 
 <h1>Details</h1>
-
+<h5>@TempData["Message"]</h5>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -38,7 +38,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Pid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Pid">Details</a> |
+                <a asp-action="Detail" asp-route-id="@item.Pid">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Pid">Delete</a>
             </td>
         </tr>

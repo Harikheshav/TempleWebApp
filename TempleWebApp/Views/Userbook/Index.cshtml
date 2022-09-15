@@ -1,0 +1,189 @@
+﻿@*@using PassMultipleModels.Service.Models
+*@
+@model UserBook
+@if (Model != null)
+{
+        <table class="table">
+        <caption style="caption-side:top;font-size:40px;">Pooja</caption>
+        <thead>
+            <tr>
+                <th>
+                    Pooja Type
+                </th>
+                <th>
+                    Cost
+                </th>
+                <th>
+                    Start Date and Time
+                </th>
+                <th>
+                    End Date and Time
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PoojaBkngs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Poo.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Poo.Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sdt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Edt)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Bkid">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Bkid">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Bkid">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table class="table">
+        <caption style="caption-side:top;font-size:40px;">Annadhanam</caption>
+        <thead>
+            <tr>
+                <th>
+                    Booking Details
+                </th>
+                 <th>
+                    Cost
+                </th>
+                <th>
+                    Start Date and Time
+                </th>
+                <th>
+                    End Date and Time
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AnDhanBkngs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Det)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sdt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Edt)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Bkid">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Bkid">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Bkid">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+    <table class="table">
+        <caption style="caption-side:top;font-size:40px;">Concert Hall</caption>
+        <thead>
+            <tr>
+                <th>
+                    Booking Details
+                </th>
+                <th>
+                    Cost
+                </th>
+                <th>
+                    Start Date and Time
+                </th>
+                <th>
+                    End Date and Time
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ConHallBkngs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Det)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sdt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Edt)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Bkid">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Bkid">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Bkid">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+    <table class="table">
+        <caption style="caption-side:top;font-size:40px;">Function Hall</caption>
+        <thead>
+            <tr>
+                <th>
+                    Booking Details
+                </th>
+                <th>
+                    Cost
+                </th>
+                <th>
+                    Start Date and Time
+                </th>
+                <th>
+                    End Date and Time
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.FnHallBkngs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Det)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sdt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Edt)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Bkid">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Bkid">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Bkid">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

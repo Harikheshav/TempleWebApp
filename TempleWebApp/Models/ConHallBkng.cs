@@ -9,18 +9,19 @@ namespace TempleWebApp.Models
         public string? Det { get; set; }
         public DateTime? Sdt { get; set; }
         public DateTime? Edt { get; set; }
-
+        public int Cost { get; set; }
         public ConHallBkng()
         {
 
         }
-
         public ConHallBkng(SlotBkng slot)
         {
             Bkid = slot.Bkid;
             Det = slot.Det;
             Sdt = slot.Sdt;
             Edt = slot.Edt;
+            Cost = slot.Cost;
         }
+
     }
 }
