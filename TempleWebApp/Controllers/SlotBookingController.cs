@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TempleWebApp.Models;
-
 namespace TempleWebApp.Controllers
 {
     public class SlotBookingController : Controller

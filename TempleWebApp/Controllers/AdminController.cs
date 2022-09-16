@@ -21,8 +21,10 @@ namespace TempleWebApp.Controllers
             var result = (from i in db.Admins where l.Uname == i.Uname && l.Pword == i.Pword select i).SingleOrDefault();
             if (result != null)
             {
-                HttpContext.Session.SetString("UserName", result.Uname);
-                return RedirectToAction("Index", "PoojaBkng");
+                HttpContext.Session.SetString("AdminName", result.Uname);
+                HttpContext.Session.SetString("AdminEmail", result.Emailid);
+                HttpContext.Session.SetString("AdminId", result.Uid.ToString());
+                return RedirectToAction("Index", "AdminBook");
             }
             else
                 return View();
@@ -42,6 +44,7 @@ namespace TempleWebApp.Controllers
         {
             db.Admins.Add(admin);
             db.SaveChanges();
+            HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
     }

@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<TempleWebApp.Models.Pooja>
-
 @{
     ViewData["Title"] = "Details";
+    
 }
-
-<h1>Details</h1>
+<h1>Pooja Types</h1>
 <h5>@TempData["Message"]</h5>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>

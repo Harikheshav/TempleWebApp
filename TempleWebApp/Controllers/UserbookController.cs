@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Web.Mvc;
 using TempleWebApp.Models;
 
 namespace TempleWebApp.Controllers
 {
-    public class UserbookController : Controller
+    public class UserbookController : Microsoft.AspNetCore.Mvc.Controller
     {
         UserBook userBook = new UserBook();
         TempleContext db;
@@ -12,50 +13,134 @@ namespace TempleWebApp.Controllers
         {
             db = _db;
         }
+        //Displays events not booked by any users.
         public IActionResult Index()
         {
-            userBook.ConHallBkngs = db.ConHallBkngs.ToList();
-            userBook.FnHallBkngs = db.FnHallBkngs.ToList();
-            userBook.AnDhanBkngs = db.AnDhanBkngs.ToList();
-            userBook.PoojaBkngs = db.PoojaBkngs.Include(x=>x.Poo).ToList();
+            userBook.ConHallBkngs = db.ConHallBkngs.Where(x=>x.Userid==null).ToList();
+            userBook.FnHallBkngs = db.FnHallBkngs.Where(x => x.Userid == null).ToList();
+            userBook.AnDhanBkngs = db.AnDhanBkngs.Where(x => x.Userid == null).ToList();
+            userBook.PoojaBkngs = db.PoojaBkngs.Where(x => x.Userid == null).Include(x=>x.Poo).ToList();
             return View(userBook);
         }
-        public IActionResult AddUser(int ch,int id)
-        //Save and store database as class
+        public IActionResult AddUser(int ch, int id)
+        //Add's a user to a unassigned booking
         {
             if (ch == 1)
             {
-                ConHallBkng conBkng = db.ConHallBkngs.Find(id);
-                db.ConHallBkngs.Remove(conBkng);
-                conBkng.User = db.Users.Find(Convert.ToInt32(HttpContext.Session.GetString("UserId")));
-                db.ConHallBkngs.Add(conBkng);
+                PoojaBkng pbkng = db.PoojaBkngs.Find(id);
+                pbkng.User = db.Users.Find(Convert.ToInt32(HttpContext.Session.GetString("UserId")));
+                db.PoojaBkngs.Update(pbkng);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("UserBooking");
             }
             else if (ch == 2)
             {
-                FnHallBkng fnBkng = db.FnHallBkngs.Find(id);
-                db.FnHallBkngs.Remove(fnBkng);
-                fnBkng.User = db.Users.Find(Convert.ToInt32(HttpContext.Session.GetString("UserId")));
-                db.FnHallBkngs.Add(fnBkng);
-                return RedirectToAction("Index");
+                AnDhanBkng abkng = db.AnDhanBkngs.Find(id);
+                abkng.User = db.Users.Find(Convert.ToInt32(HttpContext.Session.GetString("UserId")));
+                db.AnDhanBkngs.Update(abkng);
+                db.SaveChanges();
+                return RedirectToAction("UserBooking");
             }
             else if (ch == 3)
             {
-                PoojaBkng pbkng = db.PoojaBkngs.Find(id);
-                pbkng.User = db.Users.Find(Convert.ToInt32(HttpContext.Session.GetString("UserId")));
-                db.PoojaBkngs.Add(pbkng);
-                return RedirectToAction("Index");
+                ConHallBkng conBkng = db.ConHallBkngs.Find(id);
+                conBkng.User = db.Users.Find(Convert.ToInt32(HttpContext.Session.GetString("UserId")));
+                db.ConHallBkngs.Update(conBkng);
+                db.SaveChanges();
+                return RedirectToAction("UserBooking");
+
             }
             else if (ch == 4)
             {
-                AnDhanBkng abkng = db.AnDhanBkngs.Find(id);
-                AnDhanBkng.User = db.Users.Find(Convert.ToInt32(HttpContext.Session.GetString("UserId")));
-                db.AnDhanBkngs.Add(abkng);
-                return RedirectToAction("Index");
+                FnHallBkng fnBkng = db.FnHallBkngs.Find(id);
+                fnBkng.User = db.Users.Find(Convert.ToInt32(HttpContext.Session.GetString("UserId")));
+                db.FnHallBkngs.Update(fnBkng);
+                db.SaveChanges();
+                return RedirectToAction("UserBooking");
             }
             else
-                return new EmptyResult();
+                return new Microsoft.AspNetCore.Mvc.EmptyResult();
+        }
+
+        //Display events assigned to the respective user and gives options for generating bank challan, emailing it.
+        public IActionResult UserBooking()
+        {
+            int userid = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            ViewBag.uname = HttpContext.Session.GetString("UserName");
+            userBook.ConHallBkngs = db.ConHallBkngs.Where(x => x.Userid == userid).ToList();
+            userBook.FnHallBkngs = db.FnHallBkngs.Where(x => x.Userid == userid).ToList();
+            userBook.AnDhanBkngs = db.AnDhanBkngs.Where(x => x.Userid == userid).ToList();
+            userBook.PoojaBkngs = db.PoojaBkngs.Where(x => x.Userid == userid).Include(x => x.Poo).ToList();
+            return View(userBook);
+        }
+        public IActionResult GenerateChallan(int ch,int id)
+        {
+            ViewBag.User = HttpContext.Session.GetString("UserName");
+            if (ch == 1)
+            {
+                PoojaBkng pbkng = db.PoojaBkngs.Include(x => x.Poo).Where(x=>x.Bkid==id).Select(x=>x).SingleOrDefault();
+                if (pbkng != null)
+                {
+                    TempData["Booking_Type"] = "Pooja";
+                    ViewBag.Details = pbkng.Poo.Name;
+                    ViewBag.StartDate = pbkng.Sdt;
+                    ViewBag.EndDate = pbkng.Edt;
+                    ViewBag.Cost = pbkng.Poo.Cost;
+                }
+                return View();
+            }
+            else if (ch == 2)
+            {
+                AnDhanBkng abkng = db.AnDhanBkngs.Find(id);
+                if (abkng != null)
+                {
+                    TempData["Booking_Type"] = "Annadhanam";
+                    ViewBag.Details = abkng.Det;
+                    ViewBag.StartDate = abkng.Sdt;
+                    ViewBag.EndDate = abkng.Edt;
+                    ViewBag.Cost = abkng.Cost;
+                }
+                return View();
+            }
+            else if (ch == 3)
+            {
+                ConHallBkng conBkng = db.ConHallBkngs.Find(id);
+                if (conBkng != null)
+                {
+                    TempData["Booking_Type"] = "Concert Hall";
+                    ViewBag.Details = conBkng.Det;
+                    ViewBag.StartDate = conBkng.Sdt;
+                    ViewBag.EndDate = conBkng.Edt;
+                    ViewBag.Cost = conBkng.Cost;
+                }
+                return View();
+            }
+            else if (ch == 4)
+            {
+                FnHallBkng fnBkng = db.FnHallBkngs.Find(id);
+                if(fnBkng != null)
+                {
+                TempData["Booking_Type"] = "Function Hall";
+                ViewBag.Details = fnBkng.Det;
+                ViewBag.StartDate = fnBkng.Sdt;
+                ViewBag.EndDate = fnBkng.Edt;
+                ViewBag.Cost = fnBkng.Cost;
+                }
+                return View();
+            }
+            else
+                return new Microsoft.AspNetCore.Mvc.EmptyResult();
+    }
+        public static string RenderViewToString(string viewName, object model, System.Web.Mvc.ControllerContext context)
+        {
+            context.Controller.ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(context, viewName);
+                var viewContext = new ViewContext(context, viewResult.View, context.Controller.ViewData, context.Controller.TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                return sw.GetStringBuilder().ToString();
+            }
         }
     }
 }

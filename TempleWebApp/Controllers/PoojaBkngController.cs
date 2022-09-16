@@ -23,6 +23,7 @@ namespace TempleWebApp.Controllers
         [HttpPost]
         public IActionResult Index(PoojaBkng pooja)
         {
+            pooja.Cost = pooja.Poo.Cost;
             db.PoojaBkngs.Add(pooja);
             db.SaveChanges();
             return RedirectToAction("Index");

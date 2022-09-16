@@ -19,6 +19,7 @@
                 <th>
                     End Date and Time
                 </th>
+                <th>Booked User</th>
                 <th></th>
             </tr>
         </thead>
@@ -39,13 +40,16 @@
                         @Html.DisplayFor(modelItem => item.Edt)
                     </td>
                     <td>
-                        <a asp-action="AddUser" asp-route-ch="1" asp-route-id="@item.Bkid">Add User</a>
+                        @Html.DisplayFor(modelItem => item.User.Uname)
+                    </td>
+                     <td>
+                        <a asp-action="GenerateBill" asp-route-ch="1" asp-route-id="@item.Bkid">Generate Bill</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-   <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover">
         <caption style="caption-side:top;font-size:40px;">Annadhanam</caption>
         <thead>
             <tr>
@@ -61,6 +65,7 @@
                 <th>
                     End Date and Time
                 </th>
+                <th>Booked User</th>
                 <th></th>
             </tr>
         </thead>
@@ -81,7 +86,10 @@
                         @Html.DisplayFor(modelItem => item.Edt)
                     </td>
                     <td>
-                        <a asp-action="AddUser" asp-route-ch="2" asp-route-id="@item.Bkid">Add User</a>
+                        @Html.DisplayFor(modelItem => item.User.Uname)
+                    </td>
+                     <td>
+                        <a asp-action="GenerateBill" asp-route-ch="2" asp-route-id="@item.Bkid">Generate Bill</a>
                     </td>
                 </tr>
             }
@@ -90,7 +98,7 @@
 
 
 
-    <table class="table table-bordered table-hover">
+   <table class="table table-bordered table-hover">
         <caption style="caption-side:top;font-size:40px;">Concert Hall</caption>
         <thead>
             <tr>
@@ -106,6 +114,7 @@
                 <th>
                     End Date and Time
                 </th>
+                <th>Booked User</th>
                 <th></th>
             </tr>
         </thead>
@@ -126,7 +135,10 @@
                         @Html.DisplayFor(modelItem => item.Edt)
                     </td>
                     <td>
-                        <a asp-action="AddUser" asp-route-ch="3" asp-route-id="@item.Bkid">Add User</a>
+                        @Html.DisplayFor(modelItem => item.User.Uname)
+                    </td>
+                    <td>
+                        <a asp-action="GenerateBill" asp-route-ch="3" asp-route-id="@item.Bkid">Generate Bill</a>
                     </td>
                 </tr>
             }
@@ -151,6 +163,7 @@
                 <th>
                     End Date and Time
                 </th>
+                <th>Booked User</th>
                 <th></th>
             </tr>
         </thead>
@@ -171,7 +184,10 @@
                         @Html.DisplayFor(modelItem => item.Edt)
                     </td>
                     <td>
-                        <a asp-action="AddUser" asp-route-ch="4" asp-route-id="@item.Bkid">Add User</a>
+                        @Html.DisplayFor(modelItem => item.User.Uname)
+                    </td>
+                    <td>
+                        <a asp-action="GenerateBill" asp-route-ch="4" asp-route-id="@item.Bkid">Generate Bill</a>
                     </td>
                 </tr>
             }

@@ -25,7 +25,7 @@ namespace TempleWebApp.Controllers
                 HttpContext.Session.SetString("UserName", result.Uname);
                 HttpContext.Session.SetString("EmailId", result.Emailid);
                 HttpContext.Session.SetString("UserId", result.Uid.ToString());
-                return RedirectToAction("Details", "Pooja");
+                return RedirectToAction("Index", "Userbook");
             }
             else
                 return View();

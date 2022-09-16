@@ -3,7 +3,7 @@
 @model UserBook
 @if (Model != null)
 {
-        <table class="table table-bordered table-hover">
+         <table class="table table-bordered table-hover">
         <caption style="caption-side:top;font-size:40px;">Pooja</caption>
         <thead>
             <tr>
@@ -39,13 +39,13 @@
                         @Html.DisplayFor(modelItem => item.Edt)
                     </td>
                     <td>
-                        <a asp-action="AddUser" asp-route-ch="1" asp-route-id="@item.Bkid">Add User</a>
+                        <a asp-action="GenerateChallan" asp-route-ch="1" asp-route-id="@item.Bkid">Generate Bank Challan</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-   <table class="table table-bordered table-hover">
+     <table class="table table-bordered table-hover">
         <caption style="caption-side:top;font-size:40px;">Annadhanam</caption>
         <thead>
             <tr>
@@ -81,7 +81,7 @@
                         @Html.DisplayFor(modelItem => item.Edt)
                     </td>
                     <td>
-                        <a asp-action="AddUser" asp-route-ch="2" asp-route-id="@item.Bkid">Add User</a>
+                        <a asp-action="GenerateChallan" asp-route-ch="2" asp-route-id="@item.Bkid">Generate Bank Challan</a>
                     </td>
                 </tr>
             }
@@ -90,7 +90,7 @@
 
 
 
-    <table class="table table-bordered table-hover">
+     <table class="table table-bordered table-hover">
         <caption style="caption-side:top;font-size:40px;">Concert Hall</caption>
         <thead>
             <tr>
@@ -126,7 +126,7 @@
                         @Html.DisplayFor(modelItem => item.Edt)
                     </td>
                     <td>
-                        <a asp-action="AddUser" asp-route-ch="3" asp-route-id="@item.Bkid">Add User</a>
+                        <a asp-action="GenerateChallan" asp-route-ch="3" asp-route-id="@item.Bkid">Generate Bank Challan</a>
                     </td>
                 </tr>
             }
@@ -135,7 +135,7 @@
 
 
 
-    <table class="table table-bordered table-hover">
+     <table class="table table-bordered table-hover">
         <caption style="caption-side:top;font-size:40px;">Function Hall</caption>
         <thead>
             <tr>
@@ -171,7 +171,7 @@
                         @Html.DisplayFor(modelItem => item.Edt)
                     </td>
                     <td>
-                        <a asp-action="AddUser" asp-route-ch="4" asp-route-id="@item.Bkid">Add User</a>
+                        <a asp-action="GenerateChallan" asp-route-ch="4" asp-route-id="@item.Bkid">Generate Bank Challan</a>
                     </td>
                 </tr>
             }

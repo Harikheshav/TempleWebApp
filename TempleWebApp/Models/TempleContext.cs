@@ -63,7 +63,7 @@ namespace TempleWebApp.Models
             modelBuilder.Entity<AnDhanBkng>(entity =>
             {
                 entity.HasKey(e => e.Bkid)
-                    .HasName("PK__AnDhanBk__51399146ECC8712F");
+                    .HasName("PK__AnDhanBk__51399146DF2C8083");
 
                 entity.ToTable("AnDhanBkng");
 
@@ -83,12 +83,19 @@ namespace TempleWebApp.Models
                 entity.Property(e => e.Sdt)
                     .HasColumnType("datetime")
                     .HasColumnName("sdt");
+
+                entity.Property(e => e.Userid).HasColumnName("userid");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AnDhanBkngs)
+                    .HasForeignKey(d => d.Userid)
+                    .HasConstraintName("FK__AnDhanBkn__useri__6A30C649");
             });
 
             modelBuilder.Entity<ConHallBkng>(entity =>
             {
                 entity.HasKey(e => e.Bkid)
-                    .HasName("PK__ConHallB__5139914619C3DC21");
+                    .HasName("PK__ConHallB__51399146B76FFCF9");
 
                 entity.ToTable("ConHallBkng");
 
@@ -108,12 +115,19 @@ namespace TempleWebApp.Models
                 entity.Property(e => e.Sdt)
                     .HasColumnType("datetime")
                     .HasColumnName("sdt");
+
+                entity.Property(e => e.Userid).HasColumnName("userid");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ConHallBkngs)
+                    .HasForeignKey(d => d.Userid)
+                    .HasConstraintName("FK__ConHallBk__useri__6754599E");
             });
 
             modelBuilder.Entity<FnHallBkng>(entity =>
             {
                 entity.HasKey(e => e.Bkid)
-                    .HasName("PK__FnHallBk__51399146440EF955");
+                    .HasName("PK__FnHallBk__51399146329B72C4");
 
                 entity.ToTable("FnHallBkng");
 
@@ -133,6 +147,13 @@ namespace TempleWebApp.Models
                 entity.Property(e => e.Sdt)
                     .HasColumnType("datetime")
                     .HasColumnName("sdt");
+
+                entity.Property(e => e.Userid).HasColumnName("userid");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FnHallBkngs)
+                    .HasForeignKey(d => d.Userid)
+                    .HasConstraintName("FK__FnHallBkn__useri__6D0D32F4");
             });
 
             modelBuilder.Entity<Pooja>(entity =>
@@ -160,11 +181,13 @@ namespace TempleWebApp.Models
             modelBuilder.Entity<PoojaBkng>(entity =>
             {
                 entity.HasKey(e => e.Bkid)
-                    .HasName("PK__PoojaBkn__51399146AB8B3B4A");
+                    .HasName("PK__PoojaBkn__513991461EA4CC81");
 
                 entity.ToTable("PoojaBkng");
 
                 entity.Property(e => e.Bkid).HasColumnName("bkid");
+
+                entity.Property(e => e.Cost).HasColumnName("cost");
 
                 entity.Property(e => e.Det)
                     .HasMaxLength(200)
@@ -181,10 +204,17 @@ namespace TempleWebApp.Models
                     .HasColumnType("datetime")
                     .HasColumnName("sdt");
 
+                entity.Property(e => e.Userid).HasColumnName("userid");
+
                 entity.HasOne(d => d.Poo)
                     .WithMany(p => p.PoojaBkngs)
                     .HasForeignKey(d => d.Pooid)
-                    .HasConstraintName("FK__PoojaBkng__pooid__49C3F6B7");
+                    .HasConstraintName("FK__PoojaBkng__pooid__73BA3083");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PoojaBkngs)
+                    .HasForeignKey(d => d.Userid)
+                    .HasConstraintName("FK__PoojaBkng__useri__74AE54BC");
             });
 
             modelBuilder.Entity<User>(entity =>

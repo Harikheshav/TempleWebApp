@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div>
+    <h4>Bank Challan</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Booking Type
+        </dt>
+        <dd class = "col-sm-10">
+            @TempData["Booking_Type"]
+        </dd>
+        <dt class = "col-sm-2">
+            Booking Details
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.Details
+        </dd>
+        <dt class = "col-sm-2">
+            Start Date
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.StartDate
+        </dd>
+        <dt class = "col-sm-2">
+            End Date
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.EndDate
+        </dd>
+        <dt class = "col-sm-2">
+               Cost
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.Cost
+        </dd>
+        <dt class = "col-sm-2">
+            User Booked
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.User
+        </dd>
+    </dl>
+    <div><button onclick="window.print()">Save</button></div>
+</div>
