@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 namespace TempleWebApp.Models
 {
     public partial class User
@@ -16,6 +16,7 @@ namespace TempleWebApp.Models
         public int Uid { get; set; }
         public string? Uname { get; set; }
         public string? Pword { get; set; }
+        [EmailAddress]
         public string? Emailid { get; set; }
 
         public virtual ICollection<AnDhanBkng> AnDhanBkngs { get; set; }

@@ -1,8 +1,14 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
+}
+
 @{
     ViewData["Title"] = "Detail";
 }
-
+@if (ViewBag.aid != null)
+{
 <div>
     <h4>Bill</h4>
     <hr />
@@ -52,3 +58,10 @@
     </dl>
     <div><button onclick="window.print()">Save</button></div>
 </div>
+}
+else
+{
+
+<b>Either you are logged in as a User or you are logged out...</b>
+
+}

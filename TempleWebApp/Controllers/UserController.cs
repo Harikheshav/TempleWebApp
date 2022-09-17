@@ -6,7 +6,7 @@ namespace TempleWebApp.Controllers
     public class UserController : Controller
     {
         private readonly TempleContext db;
-        User user;
+        User user = new User();
         public UserController(TempleContext db)
         {
             this.db = db;

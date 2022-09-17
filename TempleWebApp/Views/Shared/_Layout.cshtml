@@ -10,10 +10,18 @@
 </head>
 <style>
   body{
-  background: url(/img/OM.jpg) no-repeat center center fixed; 
-  font-family:'Times New Roman', Times, serif
+  background: url(img/OM.jpg) no-repeat center center fixed; 
+  font-family:'Times New Roman', Times, serif;
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+   width: 70%;
+    margin: auto;
+  }
+  $('.carousel').carousel({ interval: 10 });
 }
+
 </style>
+    
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -24,7 +32,7 @@
                             ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
                         }
                         @{
-                            @if (ViewBag.aid != null)
+                                    @if (ViewBag.aid != null)
                                 Html.RenderPartial("_AdminPartial");
                             else if (ViewBag.uid != null)
                                 Html.RenderPartial("_UserPartial");

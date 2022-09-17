@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 namespace TempleWebApp.Models
 {
     public partial class FnHallBkng
     {
         public int Bkid { get; set; }
+        [DataType(DataType.Currency)]
         public int? Cost { get; set; }
         public string? Det { get; set; }
         public DateTime? Sdt { get; set; }

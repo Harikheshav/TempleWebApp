@@ -7,4 +7,5 @@ create table FnHallBkng(bkid int primary key identity(1,1),cost int,det varchar(
 create table PoojaBkng(bkid int primary key identity(1,1),cost int,pooid int foreign key references Pooja(pid),det varchar(200),sdt datetime,edt datetime,userid int foreign key references user_(uid))
 create table user_(uid int primary key identity,uname varchar(20),pword varchar(20),emailid varchar(50))
 create table admin_(uid int primary key identity,uname varchar(20),pword varchar(20),emailid varchar(50))
-drop table PoojaBkng 
+delete from AnDhanBkng where bkid=6
+select * from FnHallBkng

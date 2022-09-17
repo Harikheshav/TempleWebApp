@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 namespace TempleWebApp.Models
 {
     public partial class Pooja
@@ -12,6 +12,7 @@ namespace TempleWebApp.Models
 
         public int Pid { get; set; }
         public string? Name { get; set; }
+        [DataType(DataType.Currency)]
         public int? Cost { get; set; }
         public string? Details { get; set; }
 

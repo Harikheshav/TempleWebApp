@@ -1,11 +1,18 @@
-﻿@model TempleWebApp.Models.PoojaBkng
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
+}
+@model TempleWebApp.Models.PoojaBkng
 
 @{
     ViewData["Title"] = "Index";
 }
 
 
-<h4>Pooja Booking</h4>
+@if (ViewBag.aid != null)
+{
+<h4>Pooja Slot Assigner</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,4 +47,10 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+}
+else
+{
+
+<b>Either you are logged in as a User or you are logged out...</b>
 }

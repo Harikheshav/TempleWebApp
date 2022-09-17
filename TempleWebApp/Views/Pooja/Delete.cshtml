@@ -1,9 +1,15 @@
-﻿@model TempleWebApp.Models.Pooja
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
+}
+@model TempleWebApp.Models.Pooja
 
 @{
     ViewData["Title"] = "Delete";
 }
-
+@if (ViewBag.aid != null)
+{
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -37,3 +43,9 @@
         <a asp-action="Details">Back to List</a>
     </form>
 </div>
+}
+else
+{
+
+<b>Either you are logged in as a User or you are logged out...</b>
+}

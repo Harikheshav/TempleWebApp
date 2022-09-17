@@ -7,7 +7,7 @@ namespace TempleWebApp.Controllers
 {
     public class PoojaBkngController : Controller
     {
-        PoojaBkng pooja; 
+        PoojaBkng pooja = new PoojaBkng(); 
         TempleContext db;
         public PoojaBkngController(TempleContext _db)
         {
@@ -23,11 +23,39 @@ namespace TempleWebApp.Controllers
         [HttpPost]
         public IActionResult Index(PoojaBkng pooja)
         {
-            pooja.Cost = pooja.Poo.Cost;
             db.PoojaBkngs.Add(pooja);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Edit(int id)
+        {
+            pooja = db.PoojaBkngs.Find(id);
+            return View(pooja);
+        }
+        [HttpPost]
+        public IActionResult Edit(PoojaBkng newpooja)
+        {
+            int id = newpooja.Bkid;
+            PoojaBkng oldpooja = db.PoojaBkngs.Where(x => x.Bkid == id).FirstOrDefault();
+            db.PoojaBkngs.Remove(oldpooja);
+            db.PoojaBkngs.Add(newpooja);
+            db.SaveChanges();
+            return RedirectToAction("Index", "AdminBook");
 
+        }
+        public IActionResult Delete(int id)
+        {
+            pooja = db.PoojaBkngs.Where(x => x.Bkid == id).FirstOrDefault();
+            return View(pooja);
+        }
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult DeleteConfirm(int id)
+        {
+            pooja = db.PoojaBkngs.Find(id);
+            db.PoojaBkngs.Remove(pooja);
+            db.SaveChanges();
+            return RedirectToAction("Index", "AdminBook");
+        }
     }
 }

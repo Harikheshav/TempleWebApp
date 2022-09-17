@@ -6,7 +6,7 @@ namespace TempleWebApp.Controllers
     public class AdminController : Controller
     {
         private readonly TempleContext db;
-        Admin admin;
+        Admin admin= new Admin();
         public AdminController(TempleContext db)
         {
             this.db = db;
