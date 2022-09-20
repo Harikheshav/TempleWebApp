@@ -19,12 +19,19 @@ namespace TempleWebApp.Controllers
         [HttpPost]
         public IActionResult Edit(AnDhanBkng newabkng)
         {
-            int id = newabkng.Bkid;
-            AnDhanBkng oldabkng = db.AnDhanBkngs.Where(x => x.Bkid == id).FirstOrDefault();
-            db.AnDhanBkngs.Remove(oldabkng);
-            db.AnDhanBkngs.Add(newabkng);
-            db.SaveChanges();
-            return RedirectToAction("Index", "AdminBook");
+                int id = newabkng.Bkid;
+                AnDhanBkng oldabkng = db.AnDhanBkngs.Where(x => x.Bkid == id).FirstOrDefault();
+                db.AnDhanBkngs.Remove(oldabkng);
+            if (ModelState.IsValid)
+            {
+                db.AnDhanBkngs.Add(newabkng);
+                db.SaveChanges();
+                return RedirectToAction("Index", "AdminBook");
+            }
+            else
+            {
+                return View(abkng);
+            }
 
         }
         public IActionResult Delete(int id)

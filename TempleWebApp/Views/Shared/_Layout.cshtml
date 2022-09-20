@@ -17,14 +17,17 @@
    width: 70%;
     margin: auto;
   }
+
   $('.carousel').carousel({ interval: 10 });
 }
-
+  .navbar-custom {
+    background-color: #fff3da;
+}
 </style>
     
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-custom border-bottom box-shadow mb-3 ">
                         @using Microsoft.AspNetCore.Http
                         @inject IHttpContextAccessor HttpContextAccessor
                         @{
@@ -32,7 +35,7 @@
                             ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
                         }
                         @{
-                                    @if (ViewBag.aid != null)
+                            @if (ViewBag.aid != null)
                                 Html.RenderPartial("_AdminPartial");
                             else if (ViewBag.uid != null)
                                 Html.RenderPartial("_UserPartial");

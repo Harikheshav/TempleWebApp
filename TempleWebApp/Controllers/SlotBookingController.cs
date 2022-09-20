@@ -19,31 +19,38 @@ namespace TempleWebApp.Controllers
         [HttpPost]
         public IActionResult Index(SlotBkng slot)
         {
-            if (slot.SlotName=="FunctionHall")
+            if (ModelState.IsValid)
             {
-                FnHallBkng fn = new FnHallBkng(slot);
-                db.FnHallBkngs.Add(fn);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else if (slot.SlotName == "ConcertHall")
-            {
-                ConHallBkng con = new ConHallBkng(slot);
-                db.ConHallBkngs.Add(con);
-                db.SaveChanges();
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else if (slot.SlotName == "Annadhanam")
-            {
-                AnDhanBkng anad = new AnDhanBkng(slot);
-                db.AnDhanBkngs.Add(anad);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (slot.SlotName == "FunctionHall")
+                {
+                    FnHallBkng fn = new FnHallBkng(slot);
+                    db.FnHallBkngs.Add(fn);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if (slot.SlotName == "ConcertHall")
+                {
+                    ConHallBkng con = new ConHallBkng(slot);
+                    db.ConHallBkngs.Add(con);
+                    db.SaveChanges();
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if (slot.SlotName == "Annadhanam")
+                {
+                    AnDhanBkng anad = new AnDhanBkng(slot);
+                    db.AnDhanBkngs.Add(anad);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return new EmptyResult();
+                }
             }
             else
             {
-                return new EmptyResult();
+                return View("Index", slot);
             }
         }
     }

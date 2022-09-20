@@ -22,8 +22,15 @@ namespace TempleWebApp.Controllers
         [HttpPost]
         public IActionResult Create(Pooja pooja)
         {
-            db.Poojas.Add(pooja);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.Poojas.Add(pooja);
+                db.SaveChanges();
+            }
+            else
+            {
+                return View(pooja);
+            }
             return RedirectToAction("Details");
         }
         public IActionResult Edit(int id)
@@ -37,8 +44,11 @@ namespace TempleWebApp.Controllers
             int id = newpooja.Pid;
             Pooja oldpooja = db.Poojas.Where(x => x.Pid == id).FirstOrDefault();
             db.Poojas.Remove(oldpooja);
-            db.Poojas.Add(newpooja);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.Poojas.Add(newpooja);
+                db.SaveChanges();
+            }
             return RedirectToAction("Details");
         }
         public IActionResult Delete(int id)

@@ -42,10 +42,18 @@ namespace TempleWebApp.Controllers
         [HttpPost]
         public IActionResult register(Admin admin)
         {
-            db.Admins.Add(admin);
-            db.SaveChanges();
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            if (ModelState.IsValid)
+            {
+                db.Admins.Add(admin);
+                db.SaveChanges();
+                HttpContext.Session.Clear();
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View(admin);
+            }
+            
         }
     }
 }

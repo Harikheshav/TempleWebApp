@@ -22,8 +22,13 @@ namespace TempleWebApp.Controllers
             int id = newcbkng.Bkid;
             ConHallBkng oldcbkng = db.ConHallBkngs.Where(x => x.Bkid == id).FirstOrDefault();
             db.ConHallBkngs.Remove(oldcbkng);
-            db.ConHallBkngs.Add(newcbkng);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.ConHallBkngs.Add(newcbkng);
+                db.SaveChanges();
+            }
+            else
+                return View(cbkng);
             return RedirectToAction("Index", "AdminBook");
 
         }

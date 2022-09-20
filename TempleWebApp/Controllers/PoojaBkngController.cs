@@ -23,13 +23,22 @@ namespace TempleWebApp.Controllers
         [HttpPost]
         public IActionResult Index(PoojaBkng pooja)
         {
-            db.PoojaBkngs.Add(pooja);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.PoojaBkngs.Add(pooja);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(pooja);
+            }
         }
         public IActionResult Edit(int id)
         {
             pooja = db.PoojaBkngs.Find(id);
+            var res = db.Poojas.ToList();
+            ViewBag.Pooid = new SelectList(res, "Pid", "Name");
             return View(pooja);
         }
         [HttpPost]
@@ -38,8 +47,12 @@ namespace TempleWebApp.Controllers
             int id = newpooja.Bkid;
             PoojaBkng oldpooja = db.PoojaBkngs.Where(x => x.Bkid == id).FirstOrDefault();
             db.PoojaBkngs.Remove(oldpooja);
-            db.PoojaBkngs.Add(newpooja);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.PoojaBkngs.Add(newpooja);
+                db.SaveChanges();
+            }
+            else { return View(newpooja); }
             return RedirectToAction("Index", "AdminBook");
 
         }
