@@ -73,12 +73,54 @@ namespace TempleWebApp.Controllers
             userBook.PoojaBkngs = db.PoojaBkngs.Where(x => x.Userid == userid).Include(x => x.Poo).ToList();
             return View(userBook);
         }
-        public IActionResult GenerateChallan(int ch,int id)
+        public IActionResult CancelBooking(int ch, int id)
         {
+                if (ch == 1)
+                {
+                    PoojaBkng pbkng = db.PoojaBkngs.Find(id);
+                    pbkng.Userid = null;
+                    pbkng.User = null;
+                    db.PoojaBkngs.Update(pbkng);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if (ch == 2)
+                {
+                    AnDhanBkng abkng = db.AnDhanBkngs.Find(id);
+                    abkng.Userid = null;
+                    abkng.User = null;
+                    db.AnDhanBkngs.Update(abkng);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if (ch == 3)
+                {
+                    ConHallBkng conBkng = db.ConHallBkngs.Find(id);
+                    conBkng.Userid = null;
+                    conBkng.User = null;
+                    db.ConHallBkngs.Update(conBkng);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                }
+                else if (ch == 4)
+                {
+                    FnHallBkng fnBkng = db.FnHallBkngs.Find(id);
+                    fnBkng.Userid = null;
+                    fnBkng.User = null;
+                    db.FnHallBkngs.Update(fnBkng);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    return new Microsoft.AspNetCore.Mvc.EmptyResult();
+        }
+            public IActionResult GenerateChallan(int ch,int id)
+            {
             ViewBag.User = HttpContext.Session.GetString("UserName");
             if (ch == 1)
             {
-                PoojaBkng pbkng = db.PoojaBkngs.Include(x => x.Poo).Where(x=>x.Bkid==id).Select(x=>x).SingleOrDefault();
+                PoojaBkng pbkng = db.PoojaBkngs.Include(x => x.Poo).Where(x => x.Bkid == id).Select(x => x).SingleOrDefault();
                 if (pbkng != null)
                 {
                     TempData["Booking_Type"] = "Pooja";

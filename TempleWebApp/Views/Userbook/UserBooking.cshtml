@@ -43,9 +43,19 @@ ViewBag.uid =   @HttpContextAccessor.HttpContext.Session.GetString("UserId");
                         <td>
                             @Html.DisplayFor(modelItem => item.Edt)
                         </td>
-                        <td>
-                            <a asp-action="GenerateChallan" asp-route-ch="1" asp-route-id="@item.Bkid">Generate Bank Challan</a>
-                        </td>
+                            @if (item.Sdt > DateTime.Now)
+                            {
+                                <td>
+                                <a asp-action="GenerateChallan" asp-route-ch="1" asp-route-id="@item.Bkid">Generate Bank Challan</a>
+                                <a asp-action="CancelBooking" asp-route-ch="1" asp-route-id="@item.Bkid">Cancel Booking</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert-danger">
+                                Concert has been completed
+                                </td>
+                            }
                     </tr>
                 }
             </tbody>
@@ -85,9 +95,19 @@ ViewBag.uid =   @HttpContextAccessor.HttpContext.Session.GetString("UserId");
                         <td>
                             @Html.DisplayFor(modelItem => item.Edt)
                         </td>
-                        <td>
-                            <a asp-action="GenerateChallan" asp-route-ch="2" asp-route-id="@item.Bkid">Generate Bank Challan</a>
-                        </td>
+                        @if (item.Sdt > DateTime.Now)
+                            {
+                                <td>
+                                <a asp-action="GenerateChallan" asp-route-ch="2" asp-route-id="@item.Bkid">Generate Bank Challan</a>
+                                <a asp-action="CancelBooking" asp-route-ch="2" asp-route-id="@item.Bkid">Cancel Booking</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert-danger">
+                                Concert has been completed
+                                </td>
+                            }
                     </tr>
                 }
             </tbody>
@@ -130,9 +150,19 @@ ViewBag.uid =   @HttpContextAccessor.HttpContext.Session.GetString("UserId");
                         <td>
                             @Html.DisplayFor(modelItem => item.Edt)
                         </td>
-                        <td>
-                            <a asp-action="GenerateChallan" asp-route-ch="3" asp-route-id="@item.Bkid">Generate Bank Challan</a>
-                        </td>
+                            @if (item.Sdt > DateTime.Now)
+                            {
+                                <td>
+                                <a asp-action="GenerateChallan" asp-route-ch="3" asp-route-id="@item.Bkid">Generate Bank Challan</a>
+                                <a asp-action="CancelBooking" asp-route-ch="3" asp-route-id="@item.Bkid">Cancel Booking</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert-danger">
+                                Concert has been completed
+                                </td>
+                            }
                     </tr>
                 }
             </tbody>
@@ -175,9 +205,20 @@ ViewBag.uid =   @HttpContextAccessor.HttpContext.Session.GetString("UserId");
                         <td>
                             @Html.DisplayFor(modelItem => item.Edt)
                         </td>
-                        <td>
-                            <a asp-action="GenerateChallan" asp-route-ch="4" asp-route-id="@item.Bkid">Generate Bank Challan</a>
-                        </td>
+
+                            @if (item.Sdt > DateTime.Now)
+                            {
+                                <td>
+                                <a asp-action="GenerateChallan" asp-route-ch="4" asp-route-id="@item.Bkid">Generate Bank Challan</a>
+                                <a asp-action="CancelBooking" asp-route-ch="4" asp-route-id="@item.Bkid">Cancel Booking</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert-danger">
+                                Function has been completed
+                                </td>
+                            }
                     </tr>
                 }
             </tbody>

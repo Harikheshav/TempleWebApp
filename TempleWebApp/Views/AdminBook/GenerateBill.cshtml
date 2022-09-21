@@ -9,10 +9,11 @@ ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
 }
 @if (ViewBag.aid != null)
 {
+
 <div>
     <h4>Bill</h4>
     <hr />
-    <dl class="row">
+    <dl class="row b">
         <dt class = "col-sm-2">
             Booking Type
         </dt>
@@ -56,7 +57,7 @@ ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
             @ViewBag.Admin
         </dd>
     </dl>
-    <div><button onclick="window.print()">Save</button></div>
+    <div><button onclick="window.print()">Save as PDF</button></div>
 </div>
 }
 else

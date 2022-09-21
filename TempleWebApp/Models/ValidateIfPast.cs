@@ -13,6 +13,7 @@ namespace TempleWebApp.Models
             {
                 return ValidationResult.Success;
             }
+
             else
                 return new ValidationResult(ErrorMessage);
 
