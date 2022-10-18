@@ -11,10 +11,6 @@ namespace TempleWebApp.Controllers
         {
             db = _db;
         }
-        public IActionResult Index()
-        {
-            return View(pooja);
-        }
         public IActionResult Create()
         {
             return View(pooja);

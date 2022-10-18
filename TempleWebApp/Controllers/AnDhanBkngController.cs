@@ -16,21 +16,37 @@ namespace TempleWebApp.Controllers
             abkng = db.AnDhanBkngs.Find(id);
             return View(abkng);
         }
+        private string DateValidation(DateTime? sdt, DateTime? edt)
+        {
+            if (sdt <= DateTime.Now)
+            {
+                return "Cannot Assign Events on Past Date and Time";
+            }
+            if (edt <= sdt)
+            {
+                return "Event ends before it gets started";
+            }
+            else
+                return null;
+
+        }
         [HttpPost]
         public IActionResult Edit(AnDhanBkng newabkng)
         {
-                int id = newabkng.Bkid;
-                AnDhanBkng oldabkng = db.AnDhanBkngs.Where(x => x.Bkid == id).FirstOrDefault();
-                db.AnDhanBkngs.Remove(oldabkng);
-            if (ModelState.IsValid)
+            int id = newabkng.Bkid;
+            AnDhanBkng oldabkng = db.AnDhanBkngs.Where(x => x.Bkid == id).FirstOrDefault();
+            db.AnDhanBkngs.Remove(oldabkng);
+            string valid = DateValidation(newabkng.Sdt, newabkng.Edt);
+            if (valid != null)
+            {
+                ModelState.AddModelError("Error", valid);
+                return View(abkng);
+            }
+            else
             {
                 db.AnDhanBkngs.Add(newabkng);
                 db.SaveChanges();
                 return RedirectToAction("Index", "AdminBook");
-            }
-            else
-            {
-                return View(abkng);
             }
 
         }

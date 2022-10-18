@@ -16,7 +16,7 @@ namespace TempleWebApp.Controllers
             return View(admin);
         }
         [HttpPost]
-        public IActionResult login(User l)
+        public IActionResult login(Admin l)
         {
             var result = (from i in db.Admins where l.Uname == i.Uname && l.Pword == i.Pword select i).SingleOrDefault();
             if (result != null)

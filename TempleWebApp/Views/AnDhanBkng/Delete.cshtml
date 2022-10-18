@@ -1,5 +1,11 @@
 ﻿@model TempleWebApp.Models.AnDhanBkng
-
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
+}
+@if(ViewBag.aid!=null)
+{
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Annadhanam Delete</h4>
@@ -43,3 +49,9 @@
         <a asp-action="Index" asp-controller="Adminbook">Back</a>
     </form>
 </div>
+}
+else
+{
+    <b>Either you are logged in as a User or you are logged out...</b>
+
+}

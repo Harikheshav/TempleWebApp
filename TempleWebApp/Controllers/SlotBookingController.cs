@@ -21,11 +21,13 @@ namespace TempleWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 if (slot.SlotName == "FunctionHall")
                 {
                     FnHallBkng fn = new FnHallBkng(slot);
                     db.FnHallBkngs.Add(fn);
                     db.SaveChanges();
+                    TempData["Slot_Status"] = "Slot Added Succesfully!!!";
                     return RedirectToAction("Index");
                 }
                 else if (slot.SlotName == "ConcertHall")
@@ -33,7 +35,7 @@ namespace TempleWebApp.Controllers
                     ConHallBkng con = new ConHallBkng(slot);
                     db.ConHallBkngs.Add(con);
                     db.SaveChanges();
-                    db.SaveChanges();
+                    TempData["Slot_Status"] = "Slot Added Succesfully!!!";
                     return RedirectToAction("Index");
                 }
                 else if (slot.SlotName == "Annadhanam")
@@ -41,11 +43,13 @@ namespace TempleWebApp.Controllers
                     AnDhanBkng anad = new AnDhanBkng(slot);
                     db.AnDhanBkngs.Add(anad);
                     db.SaveChanges();
+                    TempData["Slot_Status"] = "Slot Added Succesfully!!!";
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     return new EmptyResult();
+             
                 }
             }
             else

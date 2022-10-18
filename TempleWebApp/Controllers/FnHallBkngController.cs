@@ -16,22 +16,38 @@ namespace TempleWebApp.Controllers
             fbkng = db.FnHallBkngs.Find(id);
             return View(fbkng);
         }
+        private string DateValidation(DateTime? sdt, DateTime? edt)
+        {
+            if (sdt <= DateTime.Now)
+            {
+                return "Cannot Assign Events on Past Date and Time";
+            }
+            if (edt <= sdt)
+            {
+                return "Event ends before it gets started";
+            }
+            else
+                return null;
+
+        }
         [HttpPost]
         public IActionResult Edit(FnHallBkng newfbkng)
         {
             int id = newfbkng.Bkid;
             FnHallBkng oldfbkng = db.FnHallBkngs.Where(x => x.Bkid == id).FirstOrDefault();
             db.FnHallBkngs.Remove(oldfbkng);
-            if (ModelState.IsValid)
+            string valid = DateValidation(newfbkng.Sdt, newfbkng.Edt);
+            if (valid != null)
             {
-                db.FnHallBkngs.Add(newfbkng);
+                ModelState.AddModelError("Error", valid);
+                return View(newfbkng);
             }
             else
             {
-                return View(newfbkng);
+                db.FnHallBkngs.Add(newfbkng);
+                db.SaveChanges();
+                return RedirectToAction("Index", "AdminBook");
             }
-            db.SaveChanges();
-            return RedirectToAction("Index", "AdminBook");
 
         }
         public IActionResult Delete(int id)

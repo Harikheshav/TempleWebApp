@@ -11,9 +11,9 @@ namespace TempleWebApp.Models
         public int? Cost { get; set; }
         public int? Pooid { get; set; }
         public string? Det { get; set; }
-        [DataType(DataType.DateTime), ValidateIfPast(ErrorMessage = "Cannot Assign Events on Past Date and Time")]
+        [DataType(DataType.DateTime)]
         public DateTime? Sdt { get; set; }
-        [DataType(DataType.DateTime), ValidateIfFuture("Sdt",ErrorMessage = "Event ends before it gets started")]
+        [DataType(DataType.DateTime)]
         public DateTime? Edt { get; set; }
         public int? Userid { get; set; }
 

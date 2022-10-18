@@ -41,18 +41,37 @@ namespace TempleWebApp.Controllers
             ViewBag.Pooid = new SelectList(res, "Pid", "Name");
             return View(pooja);
         }
+        private string DateValidation(DateTime? sdt, DateTime? edt)
+        {
+            if (sdt <= DateTime.Now)
+            {
+                return "Cannot Assign Events on Past Date and Time";
+            }
+            if (edt <= sdt)
+            {
+                return "Event ends before it gets started";
+            }
+            else
+                return null;
+
+        }
         [HttpPost]
         public IActionResult Edit(PoojaBkng newpooja)
         {
             int id = newpooja.Bkid;
             PoojaBkng oldpooja = db.PoojaBkngs.Where(x => x.Bkid == id).FirstOrDefault();
             db.PoojaBkngs.Remove(oldpooja);
-            if (ModelState.IsValid)
+            string valid = DateValidation(newpooja.Sdt, newpooja.Edt);
+            if (valid != null)
+            {
+                ModelState.AddModelError("Error", valid);
+                return View(newpooja);
+            }
+            else
             {
                 db.PoojaBkngs.Add(newpooja);
                 db.SaveChanges();
             }
-            else { return View(newpooja); }
             return RedirectToAction("Index", "AdminBook");
 
         }

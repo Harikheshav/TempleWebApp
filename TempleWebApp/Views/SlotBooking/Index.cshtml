@@ -13,8 +13,9 @@ ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
 {
 <h4>Program Slot Assigner</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="w-100">
+    <span class="text-danger">@TempData["Slot_Status"]</span>
+    <div>
         <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -45,7 +46,7 @@ ViewBag.aid =    @HttpContextAccessor.HttpContext.Session.GetString("AdminId");
                 <input asp-for="Cost" class="form-control" />
                 <span asp-validation-for="Cost" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group py-4">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

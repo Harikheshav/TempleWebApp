@@ -16,19 +16,37 @@ namespace TempleWebApp.Controllers
             cbkng = db.ConHallBkngs.Find(id);
             return View(cbkng);
         }
+        private string DateValidation(DateTime? sdt, DateTime? edt)
+        {
+            if (sdt <= DateTime.Now)
+            {
+                return "Cannot Assign Events on Past Date and Time";
+            }
+            if (edt <= sdt)
+            {
+                return "Event ends before it gets started";
+            }
+            else
+                return null;
+
+        }
         [HttpPost]
         public IActionResult Edit(ConHallBkng newcbkng)
         {
             int id = newcbkng.Bkid;
             ConHallBkng oldcbkng = db.ConHallBkngs.Where(x => x.Bkid == id).FirstOrDefault();
             db.ConHallBkngs.Remove(oldcbkng);
-            if (ModelState.IsValid)
+            string valid = DateValidation(newcbkng.Sdt, newcbkng.Edt);
+            if (valid != null)
+            {
+                ModelState.AddModelError("Error", valid);
+                return View(cbkng);
+            }
+            else
             {
                 db.ConHallBkngs.Add(newcbkng);
                 db.SaveChanges();
-            }
-            else
-                return View(cbkng);
+            }   
             return RedirectToAction("Index", "AdminBook");
 
         }
